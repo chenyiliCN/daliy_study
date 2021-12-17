@@ -1,0 +1,9 @@
+gcc stack protector
+GCC的栈保护知识
+
+gcc从4.2开始支持的-fstack-protector-strong的支持，其原理是在每一个函数的栈开始位置上，占用一段栈的空间，并写入指定的数据，在函数return时，先检测该段栈是否被破坏，如果是的话，则调用预先定义好的函数进行处理。
+gcc 要求我们定义一个变量和一个函数：
+uintptr_t __stack_chk_guard; //用于初始化占用的栈空间，
+void __stack_chk_fail (void); //出错时，GCC调用这个函数，这个函数不要再返回了。
+
+参考https://juejin.cn/post/6844903923724058632
